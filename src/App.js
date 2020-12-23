@@ -1,25 +1,45 @@
-import logo from './logo.svg';
+import React from 'react'
 import './App.css';
+import AppHeader from './components/common/AppHeader';
+import ListBoardComponent from './components/board/ListBoardComponent';
+import AppFooter from './components/common/AppFooter';
+import SignIn from './components/user/signin/SignIn'
+import SignUp from './components/user/SignUp/Signup'
 
-function App() {
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+
+
+
+export default function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+    <Router>
+      <AppHeader />
+
+
+      <Route exact path="/">
+        <ListBoardComponent />
+      </Route>
+
+
+      <Route path="/signin">
+        <SignIn />
+      </Route>
+
+
+      <Route path="/signup">
+        <SignUp />
+      </Route>
+
+
+      <AppFooter />
+    </Router>
+  )
+
+}
