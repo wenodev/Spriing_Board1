@@ -4,8 +4,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
@@ -20,10 +18,22 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         flexGrow: 1,
+    },
+    titleText: {
         "&:hover": {
-            color: "inherit"
+            color: "inherit",
+            textDecoration: "none"
         },
     },
+    sideNav: {
+        marginRight: theme.spacing(3),
+        color: "inherit",
+        float: "right",
+        "&:hover": {
+            color: "inherit",
+            textDecoration: "none"
+        }
+    }
 
 }));
 
@@ -34,17 +44,21 @@ export default function ButtonAppBar() {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
+                    <div className={classes.title}>
+                        <Link color="inherit" component={RouterLink} variant="h6" className={classes.titleText} to="/">
+                            Home
+                        </Link>
+                    </div>
+                    <Link color="inherit" component={RouterLink} className={classes.sideNav} to="/signin">
+                        SignIn
+                    </Link>
+                    <Link color="inherit" component={RouterLink} className={classes.sideNav} to="/signup">
+                        SignUp
+                    </Link>
+                    <Link color="inherit" component={RouterLink} className={classes.sideNav} to="/mypage">
+                        Mypage
+                    </Link>
 
-                    <Typography variant="h6" className={classes.title}>
-                        News
-          </Typography>
-
-
-                    <Link color="inherit" component={RouterLink} variant="h6" className={classes.title} to="/">
-                        With prop forwarding
-        </Link>
-
-                    <Button color="inherit" href="/signin">SignIn</Button>
                 </Toolbar>
             </AppBar>
         </div>
