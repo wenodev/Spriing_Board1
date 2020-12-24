@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,19 +12,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import { useHistory } from "react-router-dom";
+import AuthService from '../../../../services/user/auth/AuthService'
+import { ACCESS_TOKEN } from '../../../../constants/constants'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -48,6 +38,47 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const [userId, setUserId] = useState('');
+  const [password, setPassword] = useState('');
+
+  const history = useHistory()
+
+
+
+
+  useEffect(() => {
+    // console.log(userId, password)
+  })
+
+
+
+  const changeUserIdHandler = (event) => {
+    setUserId(event.target.value);
+  }
+
+  const changePasswordHandler = (event) => {
+    setPassword(event.target.value);
+  }
+
+  const handleSubmit = ((event) => {
+
+    event.preventDefault();
+
+    const member = {
+      userId: userId,
+      password: password,
+    }
+
+    AuthService.signIn(member).then((res) => {
+      console.log(res);
+      console.log(res.status)
+      localStorage.setItem(ACCESS_TOKEN, res.accessToken);
+      history.push('/');
+    })
+
+
+  })
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -70,6 +101,8 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            value={userId}
+            onChange={changeUserIdHandler}
           />
           <TextField
             variant="outlined"
@@ -81,6 +114,8 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={password}
+            onChange={changePasswordHandler}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -92,6 +127,7 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleSubmit}
           >
             Sign In
           </Button>
@@ -109,9 +145,6 @@ export default function SignIn() {
           </Grid>
         </form>
       </div>
-      {/* <Box mt={8}>
-        <Copyright />
-      </Box> */}
     </Container>
   );
 }
