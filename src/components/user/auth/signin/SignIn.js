@@ -43,14 +43,9 @@ export default function SignIn() {
 
   const history = useHistory()
 
-
-
-
   useEffect(() => {
     // console.log(userId, password)
   })
-
-
 
   const changeUserIdHandler = (event) => {
     setUserId(event.target.value);
@@ -70,6 +65,7 @@ export default function SignIn() {
     }
 
     AuthService.signIn(member).then((res) => {
+      console.log("===========")
       console.log(res);
       console.log(res.status)
       localStorage.setItem(ACCESS_TOKEN, res.accessToken);

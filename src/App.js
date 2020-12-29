@@ -5,6 +5,7 @@ import ListBoardComponent from './components/board/ListBoardComponent';
 import AppFooter from './components/common/AppFooter';
 import SignIn from './components/user/auth/signin/SignIn'
 import SignUp from './components/user/auth/signup/SignUp'
+import Mypage from './components/user/mypage/Mypage'
 
 import {
   BrowserRouter as Router,
@@ -29,6 +30,10 @@ export default function App() {
 
       <Route path="/signup">
         <SignUp />
+      </Route>
+
+      <Route path="/mypage">
+        <Mypage />
       </Route>
 
 

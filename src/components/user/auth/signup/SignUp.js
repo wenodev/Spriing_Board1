@@ -69,6 +69,8 @@ export default function Signup() {
             console.log(res);
             console.log(res.status)
             history.push('signin');
+        }).catch((error) => {
+            console.log(error);
         })
 
 

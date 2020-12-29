@@ -6,9 +6,10 @@ const AUTH_API_BASE_URL = "http://localhost:8080/api/auth";
 class AuthService {
 
     signUp(member) {
+        console.log("called signUp");
+        console.log(member);
         return axios.post(AUTH_API_BASE_URL + "/signup", member)
     }
-
 
     signIn(member) {
 
@@ -39,9 +40,8 @@ class AuthService {
                 })
             );
 
+
     }
-
-
 
 }
 
