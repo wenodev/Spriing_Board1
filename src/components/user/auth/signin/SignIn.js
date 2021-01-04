@@ -69,7 +69,11 @@ export default function SignIn() {
       console.log(res);
       console.log(res.status)
       localStorage.setItem(ACCESS_TOKEN, res.accessToken);
-      history.push('/');
+      // history.push('/');
+
+
+      window.location.href = "/";
+
     })
 
 

@@ -37,6 +37,13 @@ const useStyles = makeStyles((theme) => ({
 export default function AppHeader(props) {
     const classes = useStyles();
 
+    console.log("props : " + props.currentUser);
+    console.log("isAuthenticated : " + props.isAuthenticated);
+
+    console.log("loading : " + props.isLoading);
+
+
+
     if (!props.currentUser) {
         return (
             <div className={classes.root}>

@@ -1,13 +1,11 @@
 import axios from 'axios';
-import { ACCESS_TOKEN } from '../../../constants/constants'
+import { proceedWithJwt } from '../../../utils/JwtCheck'
 
 const AUTH_API_BASE_URL = "http://localhost:8080/api/auth";
 
 class AuthService {
 
     signUp(member) {
-        console.log("called signUp");
-        console.log(member);
         return axios.post(AUTH_API_BASE_URL + "/signup", member)
     }
 
@@ -19,14 +17,7 @@ class AuthService {
             body: JSON.stringify(member)
         }
 
-        const headers = new Headers({
-            'Content-Type': 'application/json',
-        })
-
-        if (localStorage.getItem(ACCESS_TOKEN)) {
-            headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
-        }
-
+        const headers = proceedWithJwt();
         const defaults = { headers: headers };
         options = Object.assign({}, defaults, options);
 
@@ -39,8 +30,6 @@ class AuthService {
                     return json;
                 })
             );
-
-
     }
 
 }

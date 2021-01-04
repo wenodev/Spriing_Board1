@@ -32,51 +32,43 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [isAuthenticated, setIdAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [test, setTest] = useState("test111");
 
   useEffect(() => {
-
     CurrentUser.getCurrentUser().then(res => {
-      console.log(res);
+      setCurrentUser(res.userId);
+      setIdAuthenticated(true);
     });
-
 
   });
 
 
-  if (isLoading) {
-    return (
-      <div className={classes.root}>
-        <CircularProgress />
-      </div>
-    )
-  } else {
-    return (
-      <Router>
-        <AppHeader name={test} />
 
-        <Route exact path="/">
-          <ListBoardComponent />
-        </Route>
+  return (
+    <Router>
+      <AppHeader currentUser={currentUser} isAuthenticated={isAuthenticated} isLoading={isLoading} />
+
+      <Route exact path="/">
+        <ListBoardComponent />
+      </Route>
 
 
-        <Route path="/signin">
-          <SignIn />
-        </Route>
+      <Route path="/signin">
+        <SignIn />
+      </Route>
 
-        <Route path="/signup">
-          <SignUp />
-        </Route>
+      <Route path="/signup">
+        <SignUp />
+      </Route>
 
-        <Route path="/mypage">
-          <Mypage />
-        </Route>
+      <Route path="/mypage">
+        <Mypage />
+      </Route>
 
-        <AppFooter />
-      </Router>
-    )
+      <AppFooter />
+    </Router>
+  )
 
-  }
+
 
 
 }
