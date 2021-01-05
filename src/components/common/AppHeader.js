@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -34,15 +33,15 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
+
+
 export default function AppHeader(props) {
     const classes = useStyles();
 
-    console.log("props : " + props.currentUser);
-    console.log("isAuthenticated : " + props.isAuthenticated);
 
-    console.log("loading : " + props.isLoading);
-
-
+    function handleMenuClick() {
+        props.onLogout();
+    }
 
     if (!props.currentUser) {
         return (
@@ -60,10 +59,6 @@ export default function AppHeader(props) {
                         <Link color="inherit" component={RouterLink} className={classes.sideNav} to="/signup">
                             SignUp
                         </Link>
-                        <Link color="inherit" component={RouterLink} className={classes.sideNav} to="/mypage">
-                            Mypage
-                        </Link>
-
                     </Toolbar>
                 </AppBar>
             </div>
@@ -80,6 +75,9 @@ export default function AppHeader(props) {
                         </div>
                         <Link color="inherit" component={RouterLink} className={classes.sideNav} to="/mypage">
                             Mypage
+                        </Link>
+                        <Link color="inherit" component={RouterLink} className={classes.sideNav} onClick={handleMenuClick}>
+                            Logout
                         </Link>
 
                     </Toolbar>

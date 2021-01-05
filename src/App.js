@@ -8,7 +8,7 @@ import SignUp from './components/user/auth/signup/SignUp'
 import Mypage from './components/user/mypage/Mypage'
 import CurrentUser from './services/user/current/CurrentUserService'
 import { makeStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { ACCESS_TOKEN } from './constants/constants'
 
 
 
@@ -17,7 +17,6 @@ import {
   Route,
 } from "react-router-dom";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: `20%`,
@@ -25,27 +24,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 export default function App() {
   const classes = useStyles();
 
   const [currentUser, setCurrentUser] = useState(null);
-  const [isAuthenticated, setIdAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     CurrentUser.getCurrentUser().then(res => {
       setCurrentUser(res.userId);
-      setIdAuthenticated(true);
+      setIsAuthenticated(true);
     });
 
   });
 
+  function handleLogout(redirectTo = "/", notificationType = "success", description = "You're successfully logged out.") {
+
+    console.log("called handleLogout()");
+
+    localStorage.removeItem(ACCESS_TOKEN);
+
+    setIsAuthenticated(null);
+    setIsAuthenticated(false);
+
+    window.location.href = redirectTo;
+  }
 
 
   return (
     <Router>
-      <AppHeader currentUser={currentUser} isAuthenticated={isAuthenticated} isLoading={isLoading} />
+      <AppHeader currentUser={currentUser} isAuthenticated={isAuthenticated} onLogout={handleLogout} />
 
       <Route exact path="/">
         <ListBoardComponent />
